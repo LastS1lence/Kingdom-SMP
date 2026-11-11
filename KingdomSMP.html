@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingdom SMP | Made By S1lence</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Orbitron', 'Arial Narrow', sans-serif;
+        }
+
+        body {
+            background: #0a0f1e;
+            background-image: radial-gradient(circle at 20% 30%, #0b1a2e 0%, #03060b 100%);
+            color: #e0f0ff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 180, 255, 0.03) 0px, rgba(0, 180, 255, 0.03) 2px, transparent 2px, transparent 6px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        .hashtag {
+            font-size: 0.75rem;
+            color: #3a6b8f;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .hashtag-float {
+            position: absolute;
+            font-size: 0.7rem;
+            color: #2f5a7a;
+            opacity: 0.45;
+            z-index: 0;
+            transform: rotate(-8deg);
+            white-space: nowrap;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+            padding-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #6ec8ff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 180, 255, 0.7);
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 15px #0088ff);
+        }
+
+        .hero .sub {
+            color: #9ac7ff;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero .sub span {
+            background: rgba(0, 120, 255, 0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #1e6aa0;
+            box-shadow: 0 0 10px rgba(0, 160, 255, 0.3);
+        }
+
+        .ip-box {
+            background: rgba(0, 25, 45, 0.85);
+            backdrop-filter: blur(8px);
+            border: 2px solid #00a6ff;
+            border-radius: 30px;
+            padding: 2rem 2.5rem;
+            margin: 2rem auto 3rem;
+            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem 2rem;
+            box-shadow: 0 0 40px rgba(0, 150, 255, 0.5), inset 0 0 20px rgba(0, 200, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ip-box::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 200, 255, 0.15), transparent 30%);
+            animation: rotate 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .ip-label {
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            color: #b0daff;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .ip-address {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 15px #00a2ff, 0 0 30px #004488;
+            background: #00101f;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #0088ff;
+            z-index: 2;
+            word-break: break-word;
+        }
+
+        .copy-btn {
+            background: linear-gradient(145deg, #004488, #002244);
+            border: 2px solid #00a6ff;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 20px #0088ff66, 0 0 0 1px #00a6ff inset;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(145deg, #0066bb, #003366);
+            box-shadow: 0 0 35px #00a6ff, 0 0 15px #00a6ff inset;
+            transform: scale(1.02);
+        }
+
+        .copy-btn i {
+            font-size: 1.3rem;
+        }
+
+        .copy-feedback {
+            font-size: 1rem;
+            color: #9effa0;
+            text-shadow: 0 0 8px #00ff80;
+            margin-left: 0.5rem;
+            transition: opacity 0.2s;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .rules-section {
+            background: rgba(5, 15, 30, 0.75);
+            backdrop-filter: blur(4px);
+            border: 1px solid #00a6ff50;
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            margin: 3rem 0 2rem;
+            box-shadow: 0 0 50px rgba(0, 100, 255, 0.2), inset 0 0 30px #001a33;
+            position: relative;
+        }
+
+        .rules-section h2 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #ccf0ff;
+            border-left: 6px solid #00a6ff;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #0088ff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .rule-card {
+            background: rgba(0, 20, 40, 0.7);
+            border: 1px solid #1d6b9e;
+            border-radius: 20px;
+            padding: 1.5rem 1.2rem;
+            transition: all 0.2s;
+            box-shadow: 0 0 15px #001933;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card:hover {
+            border-color: #00b4ff;
+            box-shadow: 0 0 30px #0088ff80, inset 0 0 15px #0088ff30;
+            transform: translateY(-4px);
+        }
+
+        .rule-card i {
+            font-size: 2rem;
+            color: #00b4ff;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 15px #0088ff;
+        }
+
+        .rule-card h3 {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c0e4ff;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #00a6ff50;
+            padding-bottom: 0.5rem;
+        }
+
+        .rule-card p {
+            color: #b4d4f0;
+            font-size: 0.95rem;
+        }
+
+        .rule-card small {
+            display: block;
+            margin-top: 0.8rem;
+            color: #4a7b9e;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .joke-1 {
+            top: 12%;
+            left: 2%;
+            transform: rotate(-5deg);
+        }
+        .joke-2 {
+            top: 28%;
+            right: 1%;
+            transform: rotate(7deg);
+        }
+        .joke-3 {
+            bottom: 15%;
+            left: 3%;
+            transform: rotate(4deg);
+        }
+        .joke-4 {
+            bottom: 8%;
+            right: 4%;
+            transform: rotate(-10deg);
+        }
+        .joke-5 {
+            top: 45%;
+            left: 10%;
+            transform: rotate(12deg);
+            font-size: 0.8rem;
+        }
+        .joke-6 {
+            top: 65%;
+            right: 8%;
+            transform: rotate(-3deg);
+        }
+        .inline-hash {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: #1d4c6b;
+            margin: 0 0.5rem;
+            opacity: 0.6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #1d4c6b;
+            color: #5d8cb0;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 2rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .footer .hashtag {
+            font-size: 0.8rem;
+            color: #2f5a7a;
+            opacity: 0.9;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px #0088ff;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2.8rem;
+                letter-spacing: 2px;
+            }
+            .ip-box {
+                flex-direction: column;
+                padding: 1.8rem 1rem;
+                gap: 1rem;
+            }
+            .ip-address {
+                font-size: 1.8rem;
+            }
+            .copy-btn {
+                font-size: 1rem;
+                padding: 0.6rem 1.5rem;
+            }
+            .rules-section h2 {
+                font-size: 1.6rem;
+            }
+            .hashtag-float {
+                display: none; /* hide some clutter on mobile, but keep footer hasthags */
+            }
+            .joke-1, .joke-2, .joke-3, .joke-4, .joke-5, .joke-6 {
+                display: none;
+            }
+            .hashtag {
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hashtag-float joke-1">#freeS1lence</div>
+    <div class="hashtag-float joke-2">#S1lenceIsUsed</div>
+    <div class="hashtag-float joke-3">#S1lenceIsMinor</div>
+    <div class="hashtag-float joke-4">#freeS1lence ⚔️</div>
+    <div class="hashtag-float joke-5">#S1lenceIsUsed</div>
+    <div class="hashtag-float joke-6">#S1lenceIsMinor</div>
+
+    <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+            <h1>Kingdom SMP</h1>
+            <div class="sub">
+                <span> THE TEMPLARS</span>
+                <span> MEDIEVAL ELITE</span>
+                <span> PEACEFUL CIV</span>
+            </div>
+            <div class="hashtag" style="margin-top: 1rem; font-size: 0.9rem;">#freeS1lence • #S1lenceIsUsed • #S1lenceIsMinor</div>
+        </div>
+
+        <div class="ip-box">
+            <div class="ip-label"><i class="fas fa-server" style="margin-right: 8px;"></i> SERVER IP</div>
+            <div class="ip-address" id="serverIp">Kingdom.playserver.pro</div>
+            <button class="copy-btn" id="copyButton" onclick="copyIP()">
+                <i class="fas fa-copy"></i> COPY IP
+            </button>
+            <span class="copy-feedback" id="copyFeedback"></span>
+        </div>
+        <div style="text-align: center; margin-top: -1rem; margin-bottom: 0.5rem;">
+            <span class="hashtag">#freeS1lence</span>
+            <span class="inline-hash">✦</span>
+            <span class="hashtag">#S1lenceIsUsed</span>
+            <span class="inline-hash">✦</span>
+            <span class="hashtag">#S1lenceIsMinor</span>
+        </div>
+
+        <div class="rules-section">
+            <h2><i class="fas fa-scroll" style="color: #00a6ff;"></i> THE TEMPLARS · RULES</h2>
+            <div class="rules-grid">
+
+                <div class="rule-card">
+                    <i class="fas fa-hammer"></i>
+                    <h3> Building</h3>
+                    <p>Before starting any construction project within our city, contact: <strong>Gers_ie</strong>, <strong>Pacolius</strong>, or <strong>Dapperedodo</strong>. We have a specific medieval building style and city plan. Litematica schematics may also be provided.</p>
+                    <small>#S1lenceIsUsed</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-teleport"></i>
+                    <h3> Teleporting (TP)</h3>
+                    <p>Do not teleport players from outside The Templars into our city without permission from the leadership. This prevents outsiders from building without approval or using our resources and facilities without contributing.</p>
+                    <small>#freeS1lence</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-ban"></i>
+                    <h3> No Griefing or Stealing</h3>
+                    <p>Griefing and stealing are strictly prohibited. Respect other members' builds, belongings, and resources. Do not destroy, modify, or take anything without permission. This also includes using private farms or storage systems without approval.</p>
+                    <small>#S1lenceIsMinor</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Respect Each Other</h3>
+                    <p>Treat all members with respect. Toxic behavior, harassment, discrimination, and unnecessary conflicts are not tolerated. We aim to maintain a friendly and cooperative community.</p>
+                    <small>#S1lenceIsUsed</small>
+                </div>
+                <div class="rule-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>⚔️ PvP & Conflicts</h3>
+                    <p>The Templars is primarily a peaceful civilization. Do not start wars, raids, or conflicts with other civilizations without approval from the leadership. Always follow KingdomSMP PvP rules.</p>
+                    <small>#freeS1lence</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Resources & Farms</h3>
+                    <p>Contribute to the civilization whenever possible, whether through building, gathering materials, creating farms, or helping other members. Respect shared resources and do not take excessive amounts without considering others.</p>
+                    <small>#S1lenceIsMinor</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-comments"></i>
+                    <h3> Communication</h3>
+                    <p>Keep important discussions in the appropriate Discord channels and communicate with the team when working on major projects.</p>
+                    <small>#S1lenceIsUsed</small>
+                </div>
+
+                <div class="rule-card">
+                    <i class="fas fa-book"></i>
+                    <h3> Follow Server Rules</h3>
+                    <p>All members must follow the official KingdomSMP rules, including restrictions on cheating, prohibited mods, lag machines, and other unfair gameplay.</p>
+                    <small>#freeS1lence</small>
+                </div>
+            </div>
+            <div style="text-align: right; margin-top: 1.8rem; opacity: 0.8;">
+                <span class="hashtag">#freeS1lence</span>
+                <span class="hashtag" style="margin-left: 1rem;">#S1lenceIsUsed</span>
+                <span class="hashtag" style="margin-left: 1rem;">#S1lenceIsMinor</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>⚔️ THE TEMPLARS · KINGDOM SMP ⚔️</span>
+            <span class="hashtag">#freeS1lence</span>
+            <span class="hashtag">#S1lenceIsUsed</span>
+            <span class="hashtag">#S1lenceIsMinor</span>
+            <span>🛡️ PEACEFUL · ELITE · MEDIEVAL</span>
+        </div>
+    </div>
+
+    <script>
+        function copyIP() {
+            const ipText = document.getElementById('serverIp').innerText.trim();
+            const feedbackEl = document.getElementById('copyFeedback');
+            
+            navigator.clipboard.writeText(ipText).then(() => {
+                feedbackEl.textContent = '✓ Copied!';
+                feedbackEl.style.opacity = '1';
+                setTimeout(() => {
+                    feedbackEl.textContent = '';
+                }, 2000);
+            }).catch(err => {
+                const textArea = document.createElement('textarea');
+                textArea.value = ipText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                feedbackEl.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    feedbackEl.textContent = '';
+                }, 2000);
+            });
+        }
+        const hashtags = document.querySelectorAll('.footer .hashtag');
+        setInterval(() => {
+            hashtags.forEach(tag => {
+                if (Math.random() > 0.7) {
+                    tag.style.opacity = '0.4';
+                    setTimeout(() => tag.style.opacity = '', 150);
+                }
+            });
+        }, 2000);
+    </script>
+</body>
+</html>
